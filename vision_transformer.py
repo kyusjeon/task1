@@ -199,10 +199,6 @@ class VisionTransformer(nn.Module):
     def prepare_tokens(self, x):
         B, nc, w, h = x.shape
         x = self.patch_embed(x)  # patch linear embedding
-        
-        # add shuffle by kyu
-        self.random_perm_indices = torch.randperm(x.size()[1])
-        x = x[:, self.random_perm_indices]
 
         # add the [CLS] token to the embed patch tokens
         cls_tokens = self.cls_token.expand(B, -1, -1)
